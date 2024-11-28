@@ -2,7 +2,9 @@
 
 ## Description
 
-### Allows you to automatically have every usernames showing up on [GTA V Session Sniffer](https://github.com/Illegal-Services/GTA-V-Session-Sniffer) project, by logging all players from your sessions to `Lua Scripts\GTA_V_Session_Sniffer-plugin\log.txt`.<br>
+### Allows you to automatically have every usernames showing up on [GTA V Session Sniffer](https://github.com/Illegal-Services/GTA-V-Session-Sniffer) project,
+by logging all players from your sessions to:
+`Lua Scripts\GTA_V_Session_Sniffer-plugin\log.txt`
 
 ## Screenshots
 
