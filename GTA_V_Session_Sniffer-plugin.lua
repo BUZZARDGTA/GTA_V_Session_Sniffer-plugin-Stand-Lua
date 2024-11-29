@@ -36,11 +36,12 @@ local function escape_magic_characters(string)
     return (string:gsub(".", matches))
 end
 
-local function ends_with_newline(str)
-    if string.sub(str, -1) == "\n" then
-        return true
+function is_file_string_need_newline_ending(str)
+    if #str == 0 then
+        return false
     end
-    return false
+
+    return str:sub(-1) ~= "\n"
 end
 
 function read_file(file_path)
@@ -121,7 +122,6 @@ end)
 local function loggerPreTask(player_entries_to_log, log__content, currentTimestamp, playerID, playerSCID, playerName, playerIP)
     if not player_join__timestamps[playerID] then
         player_join__timestamps[playerID] = util.current_unix_time_seconds()
-        return
     end
 
     if (
@@ -173,7 +173,7 @@ mainLoopThread = util.create_tick_handler(function()
             return
         end
 
-        if not ends_with_newline(log__content) then
+        if is_file_string_need_newline_ending(log__content) then
             local file, err = io.open(SCRIPT_LOG__PATH, "a")
             if err then
                 handle_script_exit({ hasScriptCrashed = true })
