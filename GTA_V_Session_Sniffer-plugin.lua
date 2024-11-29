@@ -134,10 +134,7 @@ local function loggerPreTask(player_entries_to_log, log__content, currentTimesta
     end
 
     local entry_pattern = string.format("user:(%s), scid:(%d), ip:(%s), timestamp:(%%d+)", escape_magic_characters(playerName), playerSCID, escape_magic_characters(playerIP))
-    if
-        not log__content:find("^" .. entry_pattern)
-        and not log__content:find("\n" .. entry_pattern)
-    then
+    if not log__content:find("^" .. entry_pattern) and not log__content:find("\n" .. entry_pattern) then
         table.insert(player_entries_to_log, string.format("user:%s, scid:%d, ip:%s, timestamp:%d", playerName, playerSCID, playerIP, currentTimestamp))
     end
 end
@@ -191,6 +188,8 @@ mainLoopThread = util.create_tick_handler(function()
             local playerIP = players.get_ip_string(playerID)
 
             loggerPreTask(player_entries_to_log, log__content, currentTimestamp, playerID, playerSCID, playerName, playerIP)
+
+            util.yield()
         end
 
         if #player_entries_to_log > 0 then
@@ -200,4 +199,6 @@ mainLoopThread = util.create_tick_handler(function()
     else
         player_join__timestamps = {}
     end
+
+    util.yield()
 end)
