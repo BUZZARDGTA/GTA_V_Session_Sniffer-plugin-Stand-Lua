@@ -1,6 +1,6 @@
 -- Author: IB_U_Z_Z_A_R_Dl
 -- Description: Plugin for GTA V Session Sniffer project on GitHub.
--- Allows you to automatically have every usernames showing up on GTA V Session Sniffer project, by logging all players from your sessions to "scripts/GTA_V_Session_Sniffer-plugin/log.txt".
+-- Allows you to automatically have every usernames showing up on GTA V Session Sniffer project, by logging all players from your sessions to "Stand\Lua Scripts\GTA_V_Session_Sniffer-plugin\log.txt".
 -- GitHub Repository: https://github.com/Illegal-Services/GTA_V_Session_Sniffer-plugin-Stand-Lua
 
 
