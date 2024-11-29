@@ -164,27 +164,27 @@ if not filesystem.exists(SCRIPT_LOG__PATH) or not filesystem.is_regular_file(SCR
 end
 
 mainLoopThread = util.create_tick_handler(function()
-    if util.is_session_started() then
-        local player_entries_to_log = {}
+    local log__content, err = read_file(SCRIPT_LOG__PATH)
+    if err then
+        handle_script_exit({ hasScriptCrashed = true })
+        return
+    end
 
-        local log__content, err = read_file(SCRIPT_LOG__PATH)
+    if is_file_string_need_newline_ending(log__content) then
+        local file, err = io.open(SCRIPT_LOG__PATH, "a")
         if err then
             handle_script_exit({ hasScriptCrashed = true })
             return
         end
 
-        if is_file_string_need_newline_ending(log__content) then
-            local file, err = io.open(SCRIPT_LOG__PATH, "a")
-            if err then
-                handle_script_exit({ hasScriptCrashed = true })
-                return
-            end
+        file:write("\n")
+        file:close()
+    end
 
-            file:write("\n")
-            file:close()
-        end
-
+    if util.is_session_started() then
+        local player_entries_to_log = {}
         local currentTimestamp = util.current_unix_time_seconds()
+
         for players.list() as playerID do
             local playerSCID = players.get_rockstar_id(playerID)
             local playerName = players.get_name(playerID)
