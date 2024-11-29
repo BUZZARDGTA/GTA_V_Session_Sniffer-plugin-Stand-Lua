@@ -93,7 +93,6 @@ local function create_empty_file(filepath)
 
     if dir then
         -- Create only the directory
-        util.toast(dir)
         filesystem.mkdirs(dir)
     end
 
