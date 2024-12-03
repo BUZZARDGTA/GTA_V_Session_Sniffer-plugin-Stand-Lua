@@ -36,12 +36,12 @@ local function escape_magic_characters(string)
     return (string:gsub(".", matches))
 end
 
-function is_file_string_need_newline_ending(str)
-    if #str == 0 then
+function is_file_string_need_newline_ending(string)
+    if #string == 0 then
         return false
     end
 
-    return str:sub(-1) ~= "\n"
+    return string:sub(-1) ~= "\n"
 end
 
 function read_file(file_path)
@@ -119,6 +119,7 @@ playerLeaveEventListener = players.on_leave(function(f)
     handle_player_leave(f)
 end)
 
+
 local function loggerPreTask(player_entries_to_log, log__content, currentTimestamp, playerID, playerSCID, playerName, playerIP)
     if not player_join__timestamps[playerID] then
         player_join__timestamps[playerID] = util.current_unix_time_seconds()
@@ -155,12 +156,13 @@ local function write_to_log_file(player_entries_to_log)
     log_file:close()
 end
 
--- === Main Loop === --
-if not filesystem.exists(SCRIPT_LOG__PATH) or not filesystem.is_regular_file(SCRIPT_LOG__PATH) then
-    create_empty_file(SCRIPT_LOG__PATH)
-end
 
+-- === Main Loop === --
 mainLoopThread = util.create_tick_handler(function()
+    if not filesystem.exists(SCRIPT_LOG__PATH) or not filesystem.is_regular_file(SCRIPT_LOG__PATH) then
+        create_empty_file(SCRIPT_LOG__PATH)
+    end
+
     local log__content, err = read_file(SCRIPT_LOG__PATH)
     if err then
         handle_script_exit({ hasScriptCrashed = true })
