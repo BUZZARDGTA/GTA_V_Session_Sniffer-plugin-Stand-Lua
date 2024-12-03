@@ -18,7 +18,7 @@ local SCRIPT_LOG__PATH <const> = filesystem.scripts_dir() .. "GTA_V_Session_Snif
 
 ---- Global functions START
 -- Function to escape special characters in a string for Lua patterns
-local function escape_magic_characters(string)
+local function escape_magic_characters(str)
     local matches = {
         ["^"] = "%^",
         ["$"] = "%$",
@@ -33,15 +33,15 @@ local function escape_magic_characters(string)
         ["-"] = "%-",
         ["?"] = "%?"
     }
-    return (string:gsub(".", matches))
+    return (str:gsub(".", matches))
 end
 
-function is_file_string_need_newline_ending(string)
-    if #string == 0 then
+function is_file_string_need_newline_ending(str)
+    if #str == 0 then
         return false
     end
 
-    return string:sub(-1) ~= "\n"
+    return str:sub(-1) ~= "\n"
 end
 
 function read_file(file_path)
