@@ -121,10 +121,6 @@ end)
 
 
 local function loggerPreTask(player_entries_to_log, log__content, currentTimestamp, playerID, playerSCID, playerName, playerIP)
-    if not player_join__timestamps[playerID] then
-        player_join__timestamps[playerID] = util.current_unix_time_seconds()
-    end
-
     if (
         not playerSCID
         or not playerName
@@ -132,6 +128,10 @@ local function loggerPreTask(player_entries_to_log, log__content, currentTimesta
         or playerIP == "255.255.255.255"
     ) then
         return
+    end
+
+    if not player_join__timestamps[playerID] then
+        player_join__timestamps[playerID] = util.current_unix_time_seconds()
     end
 
     local entry_pattern = string.format("user:(%s), scid:(%d), ip:(%s), timestamp:(%%d+)", escape_magic_characters(playerName), playerSCID, escape_magic_characters(playerIP))
